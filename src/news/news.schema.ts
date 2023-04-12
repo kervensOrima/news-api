@@ -40,3 +40,13 @@ export const newsSchemas = zod.object({
 
     author_id: zod.string().uuid().optional()
 })
+
+export const commentSchemas = zod.object({
+    id: zod.number().optional(),
+    body: zod.string()
+        .min(2, { message: 'body of comment is required' })
+        .max(20000, { message: 'body is required' })
+    ,
+    author_id: zod.string().uuid(),
+    news_id: zod.string().uuid()
+})

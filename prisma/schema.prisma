@@ -36,6 +36,7 @@ model News {
   comments        Comment[]
   author_id       String?
   author          Author?   @relation(fields: [author_id], references: [id], onDelete: SetDefault, onUpdate: SetDefault)
+  likes           Int       @default(0)
 }
 
 model Author {
@@ -57,4 +58,5 @@ model Comment {
   author         Author   @relation(fields: [author_id], references: [id], onDelete: SetDefault, onUpdate: SetDefault)
   news_id        String
   news           News     @relation(fields: [news_id], references: [id], onDelete: SetDefault, onUpdate: SetDefault)
+  likes          Int      @default(0)
 }
