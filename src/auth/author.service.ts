@@ -1,8 +1,5 @@
 import bcrypt from 'bcrypt'
-
 import { prisma } from "../config/config";
-import { SECRET } from "../config/config";
-import { generateToken } from '../config/auth.token';
 
 export const getAuthorService = (author_id: string) => {
     return prisma.author.findUnique({
@@ -40,6 +37,7 @@ export const updateAuthorService = (author: any, author_id: string) => {
 
 export const singupService = (author: any) => {
     return bcrypt.hash(author.password, 10).then(hash => {
+
         author.password = hash
 
         return prisma.author.create({
@@ -67,6 +65,14 @@ export const findAuthorByEmail = (username: string, email: string) => {
                 { email: email },
                 { username: username }
             ]
+        },
+        select: {
+            id: true,
+            accept: true,
+            email: true,
+            username: true,
+            authority: true,
+            password: true ,
         }
     })
 }
@@ -105,17 +111,17 @@ export function deleteAuthorService(author_id: string) {
 }
 
 
-export function findAuthorById (author_id: string) {
+export function findAuthorById(author_id: string) {
     return prisma.author.findUnique({
-        where:{
+        where: {
             id: author_id
-        } ,
+        },
         select: {
-            id: true ,
+            id: true,
             username: true,
-            email: true, 
-            accept: true ,
-            authority: true ,
+            email: true,
+            accept: true,
+            authority: true,
         }
     })
 }

@@ -68,13 +68,13 @@ export const signinController = (req: Request, resp: Response, next: NextFunctio
                 return resp.status(404).json(apiResponseError(`${req.body.email} not found!!!`, 404, null))
             }
 
-            bcrypt.compare(req.body.password, author.password)
+            return bcrypt.compare(req.body.password, author.password)
                 .then(success => {
                     if (!success) {
                         return resp.status(401).json(apiResponseError('Unauthorized to connect', 401, null))
                     }
                     const token = generateToken(author)
-
+                    author.password = ""
                     return resp.json(apiSuccessResponse('successfully authenticated', 200, { author: author, token: token }))
                 })
         })

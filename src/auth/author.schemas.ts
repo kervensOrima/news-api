@@ -26,5 +26,5 @@ export const authorSchema = zod.object({
         .min(10, { message: 'password must be strong' })
     ,
     accept: zod.boolean().default(false),
-    authority: zod.nativeEnum(Authority).default(Authority.BASIC).optional()
+    authority: zod.array(zod.nativeEnum(Authority)).default([Authority.BASIC]).optional()
 })

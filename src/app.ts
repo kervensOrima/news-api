@@ -8,14 +8,9 @@ import path from 'path'
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 
-
-
-
 import { apiResponseError } from './config/apiResponse'
 import { router as authorRouter } from './auth/author.router'
 import { router as newsRouter } from './news/news.router'
-
-
 
 const app = express()
 const PORT = 3000

@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { addCategoryController, commentController, commentListController, getCommentsByAuthorController, publishedController, searchNews, updateNewsController } from "./news.controller";
-import { authenticated  } from '../config/auth.token'
+import { authenticated, checkRoles } from '../config/auth.token'
+
 
 export const router = Router()
 
@@ -23,7 +24,7 @@ router.post('/comments/', commentController)
 
 
 /** see list of comments */
-router.get('/comments/', authenticated , commentListController)
+router.get('/comments/', authenticated, checkRoles(["ADMIN", "USER"]), commentListController)
 
 
 /** get comments for the author */
