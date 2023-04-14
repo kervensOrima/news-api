@@ -87,7 +87,6 @@ export const signinController = (req: Request, resp: Response, next: NextFunctio
 export const getAuthorsController = (req: Request, resp: Response) => {
     const page = req.params.page ?? 1
     const size = req.params.size ?? 18
-
     authorsService(Number(page), Number(size))
         .then(authors => {
             return resp.status(200).json(apiSuccessResponse('Successfully get author list', 200, authors))
@@ -105,7 +104,6 @@ export const deleteAuthorController = (req: Request, resp: Response) => {
             if (author === null) {
                 return resp.status(404).json(apiResponseError('author not found', 404, null))
             }
-
             return resp.status(204).json(apiSuccessResponse('successfully delete', 204, author))
         })
         .catch(err => {
